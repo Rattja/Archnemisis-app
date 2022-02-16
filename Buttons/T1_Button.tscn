@@ -1,0 +1,187 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/T1_Button.gd" type="Script" id=1]
+[ext_resource path="res://Icons/Toxic.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/T0_TextureButton.gd" type="Script" id=3]
+[ext_resource path="res://Icons/Glow.png" type="Texture" id=4]
+[ext_resource path="res://diffusion/Rob/Roboto-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Icons/Box.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 5 )
+
+[node name="IconButton" type="Control" groups=[
+"Button",
+"T1",
+]]
+mouse_filter = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2mods" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="2mods"]
+show_behind_parent = true
+position = Vector2( -9.75, 36 )
+scale = Vector2( 3.95536, 3.09091 )
+texture = ExtResource( 6 )
+
+[node name="Line2D" type="Line2D" parent="2mods"]
+points = PoolVector2Array( -48, -6, -4, -6, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="Line2D2" type="Line2D" parent="2mods"]
+points = PoolVector2Array( -46, 69, -4, 69, -4, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="3mods" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="3mods"]
+show_behind_parent = true
+position = Vector2( -10.25, 35 )
+scale = Vector2( 3.9375, 4.54545 )
+texture = ExtResource( 6 )
+
+[node name="Line2D" type="Line2D" parent="3mods"]
+points = PoolVector2Array( -48, -47, -4, -47, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="Line2D2" type="Line2D" parent="3mods"]
+points = PoolVector2Array( -48, 28, -4, 28, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="Line2D3" type="Line2D" parent="3mods"]
+points = PoolVector2Array( -46, 106, -4, 106, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="4mods" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="4mods"]
+show_behind_parent = true
+position = Vector2( -25.25, 39.5 )
+scale = Vector2( 3.9375, 6.05454 )
+texture = ExtResource( 6 )
+
+[node name="Line2D" type="Line2D" parent="4mods"]
+points = PoolVector2Array( -46, -89, -4, -89, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="Line2D2" type="Line2D" parent="4mods"]
+points = PoolVector2Array( -46, 62, -4, 62, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="Line2D3" type="Line2D" parent="4mods"]
+points = PoolVector2Array( -45, 138, -4, 138, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="Line2D4" type="Line2D" parent="4mods"]
+points = PoolVector2Array( -47, -9, -4, -9, -4, 28, 7, 28 )
+width = 2.0
+default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 5.0
+margin_right = 61.0
+margin_bottom = 55.0
+button_mask = 3
+texture_normal = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 5.94054
+margin_top = -41.3027
+margin_right = 58.9405
+margin_bottom = -16.3027
+custom_fonts/font = SubResource( 1 )
+text = "Grab"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Glow" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0.913725, 0, 0.509804 )
+position = Vector2( 32.8396, 26.9124 )
+scale = Vector2( 1.36039, 1.36039 )
+texture = ExtResource( 4 )
+
+[node name="Search_Glow" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0.219608, 1, 0, 0.509804 )
+position = Vector2( 27.5955, 26.5378 )
+scale = Vector2( 1.36039, 1.36039 )
+texture = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = -98.0
+margin_top = -75.0
+margin_right = -1.0
+margin_bottom = 73.0
+grow_vertical = 2
+custom_constants/separation = 74
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Counter" type="Label" parent="."]
+margin_top = 41.0
+margin_right = 17.0
+margin_bottom = 72.0
+text = "
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="."]
+margin_left = 5.99323
+margin_top = 54.2509
+margin_right = 61.9932
+margin_bottom = 68.2509
+grow_horizontal = 2
+custom_fonts/font = SubResource( 2 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Name"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.99323
+margin_top = 0.7491
+margin_right = -0.993229
+margin_bottom = 0.7491
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="left" from="TextureButton" to="." method="_on_TextureButton_left"]
+[connection signal="mouse_entered" from="TextureButton" to="." method="_on_TextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="." method="_on_TextureButton_mouse_exited"]
+[connection signal="right" from="TextureButton" to="." method="_on_TextureButton_right"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
