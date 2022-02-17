@@ -1,6 +1,7 @@
 extends Control
 
 var count = 0
+var target = false
 export(String) var icon_name
 export(Texture) var icon_texture
 export(Array, Texture) var recipe_icon_textures
@@ -51,6 +52,27 @@ func _on_TextureButton_right():
 	Global.update_buttons()
 	get_tree().call_group("T1", "check_recipe")
 	
+###############################		Change Start 		######################################################################
+
+func _on_TextureButton_middle():
+	toggle_target()
+	Global.save_data()
+	Global.update_buttons()
+	get_tree().call_group("T1", "check_recipe")
+
+func toggle_target():
+	target = !target
+
+func toggle_visability():
+	if target == true:
+		$TextureButton.self_modulate = Color(1, 0, 1)
+	else:
+		if count == 0:
+			$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
+		else:
+			$TextureButton.self_modulate = Color(1,1,1)
+
+###############################		Change End 		######################################################################
 
 func change_count(amount):
 	count = max(count + amount, 0)
@@ -79,12 +101,6 @@ func _on_TextureButton_mouse_exited():
 	Global.glow(icon_name)
 	get_tree().call_group("Info", "hide_info")
 	Global.current = ""
-
-func toggle_visability():
-	if count == 0:
-		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
-	else:
-		$TextureButton.self_modulate = Color(1,1,1)
 
 func search_glow(search_text):
 	if search_text.to_lower() in icon_name.to_lower():
