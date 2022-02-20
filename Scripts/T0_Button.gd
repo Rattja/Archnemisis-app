@@ -29,13 +29,11 @@ func _on_TextureButton_left():
 	change_count(1)
 	Global.save_data()
 	Global.update_buttons()
-	get_tree().call_group("T1", "check_recipe")
 
 func _on_TextureButton_right():
 	change_count(-1)
 	Global.save_data()
 	Global.update_buttons()
-	get_tree().call_group("T1", "check_recipe")
 
 func change_count(amount):
 	count = max(count + amount, 0)
@@ -62,27 +60,26 @@ func _on_TextureButton_mouse_exited():
 ###############################		Change Start 		######################################################################
 
 func _on_TextureButton_middle():
-	toggle_target()
+	toggle_tracked()
 	Global.save_data()
-	Global.update_buttons()
-	get_tree().call_group("T1", "check_recipe")
-
-func toggle_target():
-	if target == false:
-		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
-		target = true
-	else:
-		$TextureButton.self_modulate = Color(1,0,1)
-		target = false
+	get_tree().call_group("Button", "toggle_visability")
 
 func toggle_visability():
-	if target == true:
-		$TextureButton.self_modulate = Color(1, 0, 1)
+	if count == 0:
+		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
-		if count == 0:
-			$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
-		else:
-			$TextureButton.self_modulate = Color(1,1,1)
+		$TextureButton.self_modulate = Color(1,1,1)
+	if icon_name in Global.inventory["tracked"]:
+		$Tracked.visible = true
+	else:
+		$Tracked.visible = false
+
+func toggle_tracked():
+	if icon_name in Global.inventory["tracked"]:
+		Global.inventory["tracked"].erase(icon_name)
+	else:
+		Global.inventory["tracked"].append(icon_name)
+
 
 ###############################		Change End 		######################################################################
 
