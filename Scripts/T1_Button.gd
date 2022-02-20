@@ -1,6 +1,7 @@
 extends Control
 
 var count = 0
+var target = false
 export(String) var icon_name
 export(Texture) var icon_texture
 export(Array, Texture) var recipe_icon_textures
@@ -43,14 +44,33 @@ func _on_TextureButton_left():
 	change_count(1)
 	Global.save_data()
 	Global.update_buttons()
-	get_tree().call_group("T1", "check_recipe")
 
 func _on_TextureButton_right():
 	change_count(-1)
 	Global.save_data()
 	Global.update_buttons()
-	get_tree().call_group("T1", "check_recipe")
 	
+func _on_TextureButton_middle():
+	toggle_tracked()
+	Global.save_data()
+	get_tree().call_group("Button", "toggle_visability")
+
+func toggle_visability():
+	if count == 0:
+		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
+	else:
+		$TextureButton.self_modulate = Color(1,1,1)
+	if icon_name in Global.inventory["tracked"]:
+		$Tracked.visible = true
+	else:
+		$Tracked.visible = false
+
+func toggle_tracked():
+	if icon_name in Global.inventory["tracked"]:
+		Global.inventory["tracked"].erase(icon_name)
+	else:
+		Global.inventory["tracked"].append(icon_name)
+	print(Global.inventory["tracked"])
 
 func change_count(amount):
 	count = max(count + amount, 0)
@@ -80,12 +100,6 @@ func _on_TextureButton_mouse_exited():
 	get_tree().call_group("Info", "hide_info")
 	Global.current = ""
 
-func toggle_visability():
-	if count == 0:
-		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
-	else:
-		$TextureButton.self_modulate = Color(1,1,1)
-
 func search_glow(search_text):
 	if search_text.to_lower() in icon_name.to_lower():
 		$Search_Glow.visible = true
@@ -96,13 +110,27 @@ func search_glow(search_text):
 			$Search_Glow.visible = true
 
 func check_recipe():
-	var ok = true
-	var i = 0
 	for each in recipe_names:
-		for button in get_tree().get_nodes_in_group("T0"):
-			if button.icon_name == each:
-				if button.count == 0:
-					ok = false
+		if Global.inventory[each] == 0:
+			recipe_glow(false)
+			return false
+	recipe_glow(true)
+	return true
+			
+func _on_Button_pressed():
+	OS.set_clipboard(recipe_search_string)
+
+func _on_TextureButton_shift_click():
+	if !check_recipe():
+		print("Should not do it")
+	else:
+		change_count(1)
+		for each in recipe_names:
+			Global.inventory[each] = Global.inventory[each] -1
+		Global.save_data()
+		Global.update_buttons()
+
+func recipe_glow(ok):
 	if ok:
 		$"2mods/Sprite".self_modulate = Color(1, 5,5)
 		$"3mods/Sprite".self_modulate = Color(1, 5,5)
@@ -111,9 +139,3 @@ func check_recipe():
 		$"2mods/Sprite".self_modulate = Color(1, 1,1)
 		$"3mods/Sprite".self_modulate = Color(1, 1,1)
 		$"4mods/Sprite".self_modulate = Color(1, 1,1)
-		
-
-
-func _on_Button_pressed():
-	OS.set_clipboard(recipe_search_string)
-	pass # Replace with function body.

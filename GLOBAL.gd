@@ -48,6 +48,8 @@ func load_data():
 	file.open(path, file.READ)
 	var text = file.get_as_text()
 	inventory = parse_json(text)
+	if not "tracked"  in inventory.keys():
+		inventory["tracked"] = []
 	file.close()
 	
 func save_data():
@@ -58,6 +60,7 @@ func save_data():
 	
 func update_buttons():
 	get_tree().call_group("Button", "update_count")
+	get_tree().call_group("T1", "check_recipe")
 
 func glow(b_name):
 	get_tree().call_group("Button", "glow_toggle", b_name)
