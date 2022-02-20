@@ -19,4 +19,8 @@ Do note that map modifiers may change the possible drops, so this is not guarant
 
 - You can grab the mod name by mousing over a mod and pressing Ctrl+C, or the whole recipe string by clicking the grab button. This makes it easier to look them up ingame.
 
+- With shift-click you can now quick craft a recipe. It will reduce the count of all parts used by 1.
+
+- Clicking a mod with the middle mouse button will add it to tracked mods and give it a yellow outline.
+
 - The Current amount for tracked mods are stored in a json file and should be located here on Windows: %appdata%\Godot\app_userdata\Archnemesis-git
