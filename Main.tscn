@@ -896,9 +896,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InfoPanel" type="NinePatchRect" parent="." groups=[
-"Info",
-]]
+[node name="InfoPanel" type="NinePatchRect" parent="." groups=["Info"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 7.0
