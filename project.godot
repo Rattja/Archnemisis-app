@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Control",
+"class": "T0_Button",
+"language": "GDScript",
+"path": "res://Scripts/T0_Button.gd"
+}, {
+"base": "Control",
+"class": "T1_Button",
+"language": "GDScript",
+"path": "res://Scripts/T1_Button.gd"
+} ]
+_global_script_class_icons={
+"T0_Button": "",
+"T1_Button": ""
+}
+
 [application]
 
 config/name="Archnemesis-git"

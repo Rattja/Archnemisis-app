@@ -13,7 +13,7 @@ func show_info(icon_name):
 	var other_reward = ""
 	
 	for each in get_tree().get_nodes_in_group("Button"):
-		if each.main_icon and each.icon_name == icon_name:
+		if each.main_icon and each.mod_name == icon_name:
 			monster_power = each.monster_power
 			rewards = each.rewards
 			other_reward = each.description

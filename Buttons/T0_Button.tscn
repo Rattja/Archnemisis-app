@@ -14,10 +14,7 @@ font_data = ExtResource( 5 )
 use_filter = true
 font_data = ExtResource( 5 )
 
-[node name="IconButton" type="Control" groups=[
-"Button",
-"T0",
-]]
+[node name="IconButton" type="Control" groups=["Button", "T0"]]
 mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
@@ -45,6 +42,13 @@ texture = ExtResource( 4 )
 [node name="Search_Glow" type="Sprite" parent="."]
 visible = false
 modulate = Color( 0.219608, 1, 0, 0.509804 )
+position = Vector2( 27.5955, 26.5378 )
+scale = Vector2( 1.36039, 1.36039 )
+texture = ExtResource( 4 )
+
+[node name="Missing_Glow" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0, 0, 0.815686 )
 position = Vector2( 27.5955, 26.5378 )
 scale = Vector2( 1.36039, 1.36039 )
 texture = ExtResource( 4 )
