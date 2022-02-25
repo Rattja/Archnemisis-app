@@ -81,6 +81,7 @@ func save_data():
 	
 func update_buttons():
 	get_tree().call_group("Button", "update_count")
+	get_tree().call_group("T1", "check_for_missing", Global)
 	get_tree().call_group("T1", "highlight_missing")
 	get_tree().call_group("T1", "check_recipe")
 
