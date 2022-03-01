@@ -5,6 +5,7 @@ func _ready():
 #	OS.vsync_enabled(true)
 	OS.low_processor_usage_mode = true
 	Engine.target_fps = 30
+	OS.window_borderless = true
 
 func _input(event):
 	if event.is_action_released("Copy_current"):

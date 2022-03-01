@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://Buttons/T0_Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Icons/Toxic.png" type="Texture" id=2]
@@ -73,6 +73,8 @@
 [ext_resource path="res://diffusion/Rob/Roboto-Regular.ttf" type="DynamicFontData" id=71]
 [ext_resource path="res://SaveFileButton.gd" type="Script" id=72]
 [ext_resource path="res://SyncWithFile.gd" type="Script" id=73]
+[ext_resource path="res://Icons/Weapons.png" type="Texture" id=74]
+[ext_resource path="res://CloseApp.gd" type="Script" id=75]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 71 )
@@ -87,8 +89,8 @@ font_data = ExtResource( 71 )
 script = ExtResource( 5 )
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 1921.0
-margin_bottom = 1087.0
+margin_right = 1920.0
+margin_bottom = 1060.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1038,10 +1040,10 @@ default_color = Color( 0.235294, 0.235294, 0.235294, 1 )
 scale = Vector2( 1.2, 1.2 )
 
 [node name="SelectSaveFile" type="Button" parent="SettingArea"]
-margin_left = 1455.0
-margin_top = 869.167
-margin_right = 1571.0
-margin_bottom = 890.167
+margin_left = 1455.83
+margin_top = 851.667
+margin_right = 1571.83
+margin_bottom = 872.667
 rect_scale = Vector2( 1.2, 1.2 )
 text = "Select Inventory"
 script = ExtResource( 72 )
@@ -1066,13 +1068,26 @@ current_dir = "/Users/drago/Documents/GitHub/Archnemisis-app"
 current_path = "/Users/drago/Documents/GitHub/Archnemisis-app/"
 
 [node name="SyncWithFile" type="CheckBox" parent="SettingArea"]
-margin_left = 1535.83
-margin_top = 839.167
-margin_right = 1592.83
-margin_bottom = 863.167
+margin_left = 1536.66
+margin_top = 821.667
+margin_right = 1593.66
+margin_bottom = 845.667
 pressed = true
 text = "Sync"
 script = ExtResource( 73 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseApp" type="TextureButton" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 1892.0
+margin_right = 1920.0
+margin_bottom = 27.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 74 )
+expand = true
+script = ExtResource( 75 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1083,3 +1098,4 @@ __meta__ = {
 [connection signal="file_selected" from="SettingArea/SelectSaveFile/FileDialog" to="SettingArea/SelectSaveFile" method="_on_FileDialog_file_selected"]
 [connection signal="modal_closed" from="SettingArea/SelectSaveFile/FileDialog" to="SettingArea/SelectSaveFile" method="_on_FileDialog_modal_closed"]
 [connection signal="pressed" from="SettingArea/SyncWithFile" to="SettingArea/SyncWithFile" method="_on_SyncWithFile_pressed"]
+[connection signal="pressed" from="CloseApp" to="CloseApp" method="_on_CloseApp_pressed"]

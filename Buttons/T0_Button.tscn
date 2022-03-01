@@ -31,6 +31,7 @@ default_color = Color( 0.898039, 1, 0, 0.509804 )
 margin_left = -1.0
 margin_right = 55.0
 margin_bottom = 55.0
+mouse_default_cursor_shape = 2
 button_mask = 7
 texture_normal = ExtResource( 2 )
 script = ExtResource( 3 )
