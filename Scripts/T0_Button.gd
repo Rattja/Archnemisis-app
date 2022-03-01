@@ -68,23 +68,33 @@ func _on_TextureButton_mouse_exited():
 ###############################		Change Start 		######################################################################
 
 func _on_TextureButton_middle():
-	toggle_tracked()
+	var tracked = toggle_tracked()
 	Global.save_data()
 	get_tree().call_group("Button", "toggle_visability")
+	if main_node.has_method("add_to_tracked_cost"):
+		if tracked:
+			main_node.add_to_tracked_cost()
+		else:
+			main_node.remove_from_tracked_cost()
+	Global.update_buttons()
 
 func toggle_visability():
 	if count == 0:
 		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
 		$TextureButton.self_modulate = Color(1,1,1)
-	var tracked = mod_name in Global.inventory["tracked"]
+	var tracked = main_node.get_path() in Global.inventory["tracked"]
 	$Tracked.visible = tracked
 
 func toggle_tracked():
-	if mod_name in Global.inventory["tracked"]:
-		Global.inventory["tracked"].erase(mod_name)
+	var nodePath = main_node.get_path()
+	var tracked = not nodePath in Global.inventory["tracked"]
+	if tracked:
+		Global.inventory["tracked"].append(nodePath)
 	else:
-		Global.inventory["tracked"].append(mod_name)
+		Global.inventory["tracked"].erase(nodePath)
+	print("Tracked ",Global.inventory["tracked"])
+	return tracked
 
 
 ###############################		Change End 		######################################################################

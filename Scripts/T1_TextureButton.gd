@@ -10,7 +10,6 @@ func _ready():
 
 func _gui_input(event):
 	if event is InputEventMouseButton:
-		print(event)
 		if event.is_action_released("Mouse_left"):
 			if Input.is_action_pressed("Shift"):
 				emit_signal("shift_click")

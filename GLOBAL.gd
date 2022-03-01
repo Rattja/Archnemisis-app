@@ -10,6 +10,7 @@ var syncButtonPressed
 signal inventory_changed(changed_node)
 
 var trackedTotalCost = {}
+var trackedTotalMissing = {}
 
 var drop_hints = {
 'Arcane Buffer': ['Armoury','Dry Sea','Glacier','Grave Through','Mineral Pools','Peninsula','Precinct'],
@@ -61,9 +62,8 @@ func _ready():
 	invFile.close()
 	load_data()
 	
-	load_tracked_cost()
-	
-	yield(get_tree(), "idle_frame")
+	get_tree().call_group("Button", "add_to_tracked_cost")
+	yield(get_tree().create_timer(1.0), "timeout") #god knows why this is necessary...
 	update_buttons()
 
 func load_data():
@@ -74,6 +74,9 @@ func load_data():
 	if not "tracked"  in inventory.keys():
 		inventory["tracked"] = []
 	file.close()
+	var tracked = inventory["tracked"]
+	for i in range(len(tracked)):
+		tracked[i] = NodePath(tracked[i])
 	
 func save_data():
 	var file = File.new()
@@ -90,6 +93,7 @@ func update_buttons():
 	get_tree().call_group("T1", "check_for_missing", Global)
 	get_tree().call_group("T1", "highlight_missing")
 	get_tree().call_group("T1", "check_recipe")
+	update_tracked_cost()
 	highlight_tracked_parts()
 
 func glow(b_name):
@@ -103,17 +107,44 @@ func _notification(event):
 		load_data()
 		update_buttons()
 
-func load_tracked_cost():
-	get_tree().call_group("Button", "add_to_tracked_cost")
+func update_tracked_cost():
+	trackedTotalMissing = trackedTotalCost.duplicate(true)
+	for nodePath in inventory["tracked"]:
+		var node = get_node(nodePath)
+		var amount = min(1, node.count)
+		if amount > 0:
+			if node is T1_Button:
+				remove_sub_parts(node, trackedTotalMissing, amount)
+			else:
+				trackedTotalMissing[node] -= amount
+	for node in trackedTotalMissing:
+		var amount = min(trackedTotalMissing[node], node.count)
+		if amount > 0:
+			trackedTotalMissing[node] -= amount
+			if node is T1_Button:
+				remove_sub_parts(node, trackedTotalMissing, amount)
+	var tempMissing = {}
+	for node in trackedTotalMissing:
+		if trackedTotalMissing[node] > 0:
+			tempMissing[node] = trackedTotalMissing[node]
+	trackedTotalMissing = tempMissing
 	
+func remove_sub_parts(target, dict, amount):
+	for nodePath in target.recipe_names:
+		var recipePart = get_node("/root/Node2D/"+nodePath)
+		if recipePart in dict:
+			dict[recipePart] = dict[recipePart] - amount
+		if not recipePart is T0_Button:
+			remove_sub_parts(recipePart, dict, amount)
+
 func highlight_tracked_parts():
 	var all_buttons = get_tree().get_nodes_in_group("Button")
 	for mod in all_buttons:
 		var part = mod.get_node("TrackedPart") as Line2D
 		var label = mod.get_node("Counter") as Label
-		if mod in trackedTotalCost:
+		if mod in trackedTotalMissing:
 			part.visible = true
-			label.text = str(mod.count) + "/" + str(trackedTotalCost[mod])
+			label.text = str(mod.count) + "/" + str(trackedTotalMissing[mod])
 		else:
 			part.visible = false
 			label.text = str(mod.count)

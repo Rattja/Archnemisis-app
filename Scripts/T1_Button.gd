@@ -91,16 +91,17 @@ func toggle_visability():
 		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
 		$TextureButton.self_modulate = Color(1,1,1)
-	var tracked = mod_name in Global.inventory["tracked"]
+	var tracked = main_node.get_path() in Global.inventory["tracked"]
 	$Tracked.visible = tracked
 
 func toggle_tracked():
-	var tracked = not mod_name in Global.inventory["tracked"]
+	var nodePath = main_node.get_path()
+	var tracked = not nodePath in Global.inventory["tracked"]
 	if tracked:
-		Global.inventory["tracked"].append(mod_name)
+		Global.inventory["tracked"].append(nodePath)
 	else:
-		Global.inventory["tracked"].erase(mod_name)
-	print(Global.inventory["tracked"])
+		Global.inventory["tracked"].erase(nodePath)
+	print("Tracked ",Global.inventory["tracked"])
 	return tracked
 
 func change_count(amount):
@@ -129,12 +130,14 @@ func _on_TextureButton_mouse_entered():
 	get_tree().call_group("Info", "show_info", mod_name)
 	Global.current = mod_name
 	toggle_missing()
+	change_tracked_color(true)
 
 func _on_TextureButton_mouse_exited():
 	Global.glow(mod_name)
 	get_tree().call_group("Info", "hide_info")
 	Global.current = ""
 	toggle_missing()
+	change_tracked_color(false)
 
 func search_glow(search_text):
 	if search_text.to_lower() in mod_name.to_lower():
@@ -172,7 +175,6 @@ func recipe_glow(color):
 	$"2mods/Sprite".self_modulate = color
 	$"3mods/Sprite".self_modulate = color
 	$"4mods/Sprite".self_modulate = color
-	
 
 func highlight_craftable():
 	var complete = true
@@ -193,9 +195,9 @@ func toggle_missing():
 			counter.text = str(node.count) + "/" + str(node.count+missing_components[node])
 		else:
 			counter.text = str(node.count)
-			if node in Global.trackedTotalCost:
-				if Global.trackedTotalCost[node] > 0:
-					counter.text += "/" + str(Global.trackedTotalCost[node])
+			if node in Global.trackedTotalMissing:
+				if Global.trackedTotalMissing[node] > 0:
+					counter.text += "/" + str(Global.trackedTotalMissing[node])
 
 func check_for_missing(changed_node):
 	if changed_node != Global and not changed_node in depending_on: return
@@ -228,19 +230,32 @@ func add_up_recipe_cost(node, dict):
 	for nodepath in mod.recipe_names:
 		var recipePart = get_node("/root/Node2D/"+nodepath)
 		if recipePart in dict:
-			dict[recipePart] = dict[recipePart] + 1
+			dict[recipePart] += 1
 		else:
 			dict[recipePart] = 1
 		add_up_recipe_cost(recipePart, dict)
 		
 func add_to_tracked_cost():
-	if not mod_name in Global.inventory["tracked"]: return
-	add_up_recipe_cost(self, Global.trackedTotalCost)
+	if not main_node.get_path() in Global.inventory["tracked"]: return
+	var dict = Global.trackedTotalCost
+	add_up_recipe_cost(main_node, dict)
 
 func remove_from_tracked_cost():
-	if mod_name in Global.inventory["tracked"]: return
-	for mod in depending_on:
-		Global.trackedTotalCost[mod] -= depending_on[mod]
-		if Global.trackedTotalCost[mod] <= 0:
-			Global.trackedTotalCost.erase(mod)
+	if main_node.get_path() in Global.inventory["tracked"]: return
+	var dict = Global.trackedTotalCost
+	for mod in main_node.depending_on:
+		dict[mod] -= main_node.depending_on[mod]
+		if dict[mod] <= 0:
+			dict.erase(mod)
 
+func change_tracked_color(adapt):
+	for node in main_node.depending_on:
+		var color = Color(1,1,1)
+		if adapt:
+			var amounts = node.get_node("Counter").text.split("/")
+			if len(amounts) == 2: 
+				if amounts[0] >= amounts[1]:
+					color = Color(0,1,0,10)
+				else:
+					color = Color(1,0,0,5)
+		node.get_node("TrackedPart").modulate = color

@@ -25,7 +25,7 @@ __meta__ = {
 visible = false
 points = PoolVector2Array( 27.5, 60, -5, 27.5, 27.5, -5, 60, 27.5, 27.5, 60 )
 width = 2.0
-default_color = Color( 0.898438, 1, 0, 0.509804 )
+default_color = Color( 0.898039, 1, 0, 0.509804 )
 
 [node name="TextureButton" type="TextureButton" parent="."]
 margin_left = -1.0
