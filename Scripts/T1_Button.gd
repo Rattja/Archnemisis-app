@@ -130,14 +130,14 @@ func _on_TextureButton_mouse_entered():
 	get_tree().call_group("Info", "show_info", mod_name)
 	Global.current = mod_name
 	toggle_missing()
-	change_tracked_color(true)
+	toggle_parts()
 
 func _on_TextureButton_mouse_exited():
 	Global.glow(mod_name)
 	get_tree().call_group("Info", "hide_info")
 	Global.current = ""
 	toggle_missing()
-	change_tracked_color(false)
+	toggle_parts()
 
 func search_glow(search_text):
 	if search_text.to_lower() in mod_name.to_lower():
@@ -193,14 +193,16 @@ func toggle_missing():
 		var glow = node.get_node("Missing_Glow")
 		if node in missing_components:
 			glow.visible = toggle
-		var counter = node.get_node("Counter") as Label
+		var counter = node.get_node("PartCounter") as Label
 		if toggle:
-			counter.text = str(node.count) + "/" + str(depending_on[node])
+			counter.text = str(depending_on[node])
 		else:
+			counter.text = ""
+		"""else:
 			counter.text = str(node.count)
 			if node in Global.trackedTotalMissing:
 				if Global.trackedTotalMissing[node] > 0:
-					counter.text += "/" + str(Global.trackedTotalMissing[node]+node.count)
+					counter.text += "/" + str(Global.trackedTotalMissing[node]+node.count)"""
 
 func check_for_missing(changed_node):
 	if changed_node != Global and not changed_node in depending_on: return
@@ -251,19 +253,6 @@ func remove_from_tracked_cost():
 		dict[mod] -= main_node.depending_on[mod]
 		if dict[mod] <= 0:
 			dict.erase(mod)
-
-func change_tracked_color(adapt):
-	for node in main_node.depending_on:
-		var color = Color(1,1,1)
-		if adapt:
-			var amounts = node.get_node("Counter").text.split("/")
-			if len(amounts) == 2: 
-				if amounts[0] >= amounts[1]:
-					color = Color(0,1,0,10)
-				else:
-					color = Color(1,0,0,5)
-		node.get_node("TrackedPart").modulate = color
-	toggle_parts()
 
 func toggle_parts():
 	for node in main_node.depending_on:

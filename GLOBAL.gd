@@ -63,7 +63,7 @@ func _ready():
 	load_data()
 	
 	get_tree().call_group("Button", "add_to_tracked_cost")
-	yield(get_tree().create_timer(1.0), "timeout") #god knows why this is necessary...
+	yield(get_tree().create_timer(0.5), "timeout") #god knows why this is necessary...
 	update_buttons()
 
 func load_data():
@@ -116,7 +116,7 @@ func update_tracked_cost():
 			if node is T1_Button:
 				remove_sub_parts(node, trackedTotalMissing, amount)
 			else:
-				trackedTotalMissing[node] -= amount
+				trackedTotalMissing[node] = 1
 	for node in trackedTotalMissing:
 		var amount = min(trackedTotalMissing[node], node.count)
 		if amount > 0:
@@ -137,14 +137,34 @@ func remove_sub_parts(target, dict, amount):
 		if not recipePart is T0_Button:
 			remove_sub_parts(recipePart, dict, amount)
 
+var first_iteration = true
 func highlight_tracked_parts():
+	var craftable = true
+	var ready = true
 	var all_buttons = get_tree().get_nodes_in_group("Button")
 	for mod in all_buttons:
+		var tracked = mod.get_node("Tracked") as Line2D
+		tracked.self_modulate = Color(1,1,1)
+		tracked.width = 2
 		var part = mod.get_node("TrackedPart") as Line2D
 		var label = mod.get_node("Counter") as Label
 		if mod in trackedTotalMissing:
+			ready = false
+			if mod is T0_Button:
+				craftable = false
 			part.visible = true
 			label.text = str(mod.count) + "/" + str(trackedTotalMissing[mod]+mod.count)
 		else:
 			part.visible = false
 			label.text = str(mod.count)
+	if first_iteration: 
+		first_iteration = false
+		return
+	if ready:
+		for nodePath in inventory["tracked"]:
+			var tracked = (get_node(nodePath).get_node("Tracked") as Line2D)
+			tracked.width = 6
+			tracked.self_modulate = Color(0,1,1, 10)
+	elif craftable:
+		for nodePath in inventory["tracked"]:
+			(get_node(nodePath).get_node("Tracked") as Line2D).self_modulate = Color(0,1,1)

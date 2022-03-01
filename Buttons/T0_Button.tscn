@@ -116,6 +116,25 @@ points = PoolVector2Array( 0, 55, 55, 55, 55, 0, 0, 0, 0, 55 )
 width = 2.0
 default_color = Color( 1, 1, 0, 0.509804 )
 
+[node name="PartCounter" type="Label" parent="."]
+margin_left = 55.0
+margin_right = 71.0
+margin_bottom = 19.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="PartCounter"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="left" from="TextureButton" to="." method="_on_TextureButton_left"]
 [connection signal="middle" from="TextureButton" to="." method="_on_TextureButton_middle"]
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_TextureButton_mouse_entered"]

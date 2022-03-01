@@ -76,6 +76,14 @@ func _on_TextureButton_middle():
 			main_node.add_to_tracked_cost()
 		else:
 			main_node.remove_from_tracked_cost()
+	else:
+		if tracked:
+			Global.trackedTotalCost[main_node] = 1
+		else:
+			if main_node in Global.trackedTotalCost:
+				Global.trackedTotalCost[main_node] -= 1
+			elif not main_node in Global.trackedTotalCost || Global.trackedTotalCost[main_node]<=0:
+				Global.trackedTotalCost.erase(main_node)
 	Global.update_buttons()
 
 func toggle_visability():
@@ -83,8 +91,10 @@ func toggle_visability():
 		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
 		$TextureButton.self_modulate = Color(1,1,1)
-	var tracked = main_node in Global.inventory["tracked"]
-	$Tracked.visible = tracked
+	
+	if main_node.is_inside_tree():
+		var tracked = main_node.get_path() in Global.inventory["tracked"]
+		$Tracked.visible = tracked
 
 func toggle_tracked():
 	var nodePath = main_node.get_path()
