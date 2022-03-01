@@ -44,14 +44,15 @@ func _on_TextureButton_right():
 func change_count(amount):
 	count = max(count + amount, 0)
 	main_node.count = count
-	$Counter.text = str(count)
+	if not $TrackedPart.visible:
+		$Counter.text = str(count)
 	Global.inventory[mod_name] = count
 	toggle_visability()
 	
-	
 func update_count():
 	count = Global.inventory[mod_name]
-	$Counter.text = str(count)
+	if not $TrackedPart.visible:
+		$Counter.text = str(count)
 	toggle_visability()
 
 func _on_TextureButton_mouse_entered():
@@ -76,10 +77,8 @@ func toggle_visability():
 		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
 		$TextureButton.self_modulate = Color(1,1,1)
-	if mod_name in Global.inventory["tracked"]:
-		$Tracked.visible = true
-	else:
-		$Tracked.visible = false
+	var tracked = mod_name in Global.inventory["tracked"]
+	$Tracked.visible = tracked
 
 func toggle_tracked():
 	if mod_name in Global.inventory["tracked"]:

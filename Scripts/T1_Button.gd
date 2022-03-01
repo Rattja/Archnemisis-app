@@ -77,31 +77,37 @@ func _on_TextureButton_right():
 	Global.emit_signal("inventory_changed", main_node)
 	
 func _on_TextureButton_middle():
-	toggle_tracked()
+	var tracked = toggle_tracked()
 	Global.save_data()
 	get_tree().call_group("Button", "toggle_visability")
-
+	if tracked:
+		add_to_tracked_cost()
+	else:
+		remove_from_tracked_cost()
+	Global.update_buttons()
+	
 func toggle_visability():
 	if count == 0:
 		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
 		$TextureButton.self_modulate = Color(1,1,1)
-	if mod_name in Global.inventory["tracked"]:
-		$Tracked.visible = true
-	else:
-		$Tracked.visible = false
+	var tracked = mod_name in Global.inventory["tracked"]
+	$Tracked.visible = tracked
 
 func toggle_tracked():
-	if mod_name in Global.inventory["tracked"]:
-		Global.inventory["tracked"].erase(mod_name)
-	else:
+	var tracked = not mod_name in Global.inventory["tracked"]
+	if tracked:
 		Global.inventory["tracked"].append(mod_name)
+	else:
+		Global.inventory["tracked"].erase(mod_name)
 	print(Global.inventory["tracked"])
+	return tracked
 
 func change_count(amount):
 	count = max(count + amount, 0)
 	main_node.count = count
-	$Counter.text = str(count)
+	if not $TrackedPart.visible:
+		$Counter.text = str(count)
 	Global.inventory[mod_name] = count
 	if count == 0:
 		pass
@@ -109,7 +115,8 @@ func change_count(amount):
 	
 func update_count():
 	count = Global.inventory[mod_name]
-	$Counter.text = str(count)
+	if not $TrackedPart.visible:
+		$Counter.text = str(count)
 	toggle_visability()
 
 func glow_toggle(b_name):
@@ -183,9 +190,12 @@ func toggle_missing():
 		glow.visible = !glow.visible
 		var counter = node.get_node("Counter") as Label
 		if glow.visible:
-			counter.text = counter.text + "/" + str(int(counter.text)+missing_components[node])
+			counter.text = str(node.count) + "/" + str(node.count+missing_components[node])
 		else:
-			counter.text = counter.text.split('/')[0]
+			counter.text = str(node.count)
+			if node in Global.trackedTotalCost:
+				if Global.trackedTotalCost[node] > 0:
+					counter.text += "/" + str(Global.trackedTotalCost[node])
 
 func check_for_missing(changed_node):
 	if changed_node != Global and not changed_node in depending_on: return
@@ -222,3 +232,15 @@ func add_up_recipe_cost(node, dict):
 		else:
 			dict[recipePart] = 1
 		add_up_recipe_cost(recipePart, dict)
+		
+func add_to_tracked_cost():
+	if not mod_name in Global.inventory["tracked"]: return
+	add_up_recipe_cost(self, Global.trackedTotalCost)
+
+func remove_from_tracked_cost():
+	if mod_name in Global.inventory["tracked"]: return
+	for mod in depending_on:
+		Global.trackedTotalCost[mod] -= depending_on[mod]
+		if Global.trackedTotalCost[mod] <= 0:
+			Global.trackedTotalCost.erase(mod)
+

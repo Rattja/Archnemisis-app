@@ -392,8 +392,6 @@ icon_texture = ExtResource( 17 )
 rewards = [ "Fossils" ]
 monster_power = "Monster has augmented Life Leech powers"
 
-[node name="Sprite" type="Sprite" parent="T1"]
-
 [node name="T2" type="GridContainer" parent="."]
 margin_left = 410.0
 margin_top = 61.0

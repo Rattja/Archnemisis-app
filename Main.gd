@@ -17,3 +17,4 @@ func _on_Scene_ready():
 	Global.syncButton = syncButton
 	get_tree().call_group("T1", "check_for_missing", Global)
 	get_tree().call_group("T1", "check_recipe")
+	Global.update_buttons()
