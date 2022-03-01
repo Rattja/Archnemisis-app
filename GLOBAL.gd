@@ -144,7 +144,7 @@ func highlight_tracked_parts():
 		var label = mod.get_node("Counter") as Label
 		if mod in trackedTotalMissing:
 			part.visible = true
-			label.text = str(mod.count) + "/" + str(trackedTotalMissing[mod])
+			label.text = str(mod.count) + "/" + str(trackedTotalMissing[mod]+mod.count)
 		else:
 			part.visible = false
 			label.text = str(mod.count)

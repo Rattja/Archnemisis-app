@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/T0_Button.gd" type="Script" id=1]
 [ext_resource path="res://Icons/Toxic.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/T0_TextureButton.gd" type="Script" id=3]
 [ext_resource path="res://Icons/Glow.png" type="Texture" id=4]
 [ext_resource path="res://diffusion/Rob/Roboto-Regular.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0.0901961, 0.709804, 0, 1, 0, 0.529412, 1, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 use_filter = true
@@ -20,6 +23,14 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="IsPartOf" type="Line2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.3 )
+points = PoolVector2Array( 0, 27, -2, -2, 27, 0, 56, -2, 54, 28, 56, 56, 27, 54, -2, 56, 0, 27 )
+width = 2.0
+gradient = SubResource( 3 )
+antialiased = true
 
 [node name="TrackedPart" type="Line2D" parent="."]
 visible = false

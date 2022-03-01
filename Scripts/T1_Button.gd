@@ -67,14 +67,14 @@ func add_sub_icons():
 func _on_TextureButton_left():
 	change_count(1)
 	Global.save_data()
-	Global.update_buttons()
 	Global.emit_signal("inventory_changed", main_node)
+	Global.update_buttons()
 
 func _on_TextureButton_right():
 	change_count(-1)
 	Global.save_data()
-	Global.update_buttons()
 	Global.emit_signal("inventory_changed", main_node)
+	Global.update_buttons()
 	
 func _on_TextureButton_middle():
 	var tracked = toggle_tracked()
@@ -186,27 +186,31 @@ func highlight_craftable():
 	else:
 		recipe_glow(Color(1,1,1))
 
+var toggle = false
 func toggle_missing():
-	for node in missing_components:
+	toggle = not toggle
+	for node in depending_on:
 		var glow = node.get_node("Missing_Glow")
-		glow.visible = !glow.visible
+		if node in missing_components:
+			glow.visible = toggle
 		var counter = node.get_node("Counter") as Label
-		if glow.visible:
-			counter.text = str(node.count) + "/" + str(node.count+missing_components[node])
+		if toggle:
+			counter.text = str(node.count) + "/" + str(depending_on[node])
 		else:
 			counter.text = str(node.count)
 			if node in Global.trackedTotalMissing:
 				if Global.trackedTotalMissing[node] > 0:
-					counter.text += "/" + str(Global.trackedTotalMissing[node])
+					counter.text += "/" + str(Global.trackedTotalMissing[node]+node.count)
 
 func check_for_missing(changed_node):
 	if changed_node != Global and not changed_node in depending_on: return
 	var total_cost = depending_on.duplicate(true)
 	for node in total_cost:
-		total_cost[node] = total_cost[node] - node.count
-		if not node is T0_Button:
-			if node.count > 0:
-				remove_sub_parts(node, total_cost)
+		var amount = min(depending_on[node], node.count)
+		total_cost[node] -= amount
+		if amount > 0:
+			if not node is T0_Button:
+				remove_sub_parts(node, total_cost, amount)
 	
 	missing_components = {}
 	for node in total_cost:
@@ -215,13 +219,13 @@ func check_for_missing(changed_node):
 	
 	highlight_craftable()
 
-func remove_sub_parts(node, dict):
+func remove_sub_parts(node, dict, amount):
 	for nodePath in node.recipe_names:
 		var recipePart = get_node("/root/Node2D/"+nodePath)
 		if recipePart in dict:
-			dict[recipePart] = dict[recipePart] - 1
+			dict[recipePart] -= amount
 		if not recipePart is T0_Button:
-			remove_sub_parts(recipePart, dict)
+			remove_sub_parts(recipePart, dict, amount)
 
 func add_up_recipe_cost(node, dict):
 	if node is T0_Button: return
@@ -259,3 +263,9 @@ func change_tracked_color(adapt):
 				else:
 					color = Color(1,0,0,5)
 		node.get_node("TrackedPart").modulate = color
+	toggle_parts()
+
+func toggle_parts():
+	for node in main_node.depending_on:
+		var frame = node.get_node("IsPartOf")
+		frame.visible = not frame.visible

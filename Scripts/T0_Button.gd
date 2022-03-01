@@ -32,14 +32,14 @@ func setup():
 func _on_TextureButton_left():
 	change_count(1)
 	Global.save_data()
-	Global.update_buttons()
 	Global.emit_signal("inventory_changed", main_node)
+	Global.update_buttons()
 
 func _on_TextureButton_right():
 	change_count(-1)
 	Global.save_data()
-	Global.update_buttons()
 	Global.emit_signal("inventory_changed", main_node)
+	Global.update_buttons()
 
 func change_count(amount):
 	count = max(count + amount, 0)
@@ -83,7 +83,7 @@ func toggle_visability():
 		$TextureButton.self_modulate = Color(0.2, 0.2, 0.2)
 	else:
 		$TextureButton.self_modulate = Color(1,1,1)
-	var tracked = main_node.get_path() in Global.inventory["tracked"]
+	var tracked = main_node in Global.inventory["tracked"]
 	$Tracked.visible = tracked
 
 func toggle_tracked():
