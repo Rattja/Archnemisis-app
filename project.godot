@@ -29,6 +29,7 @@ _global_script_class_icons={
 config/name="Archnemesis-git"
 run/main_scene="res://Main.tscn"
 config/icon="res://Icons/Innocence-touched.png"
+config/windows_native_icon="res://Icons/WindowIcon.ico"
 
 [autoload]
 
