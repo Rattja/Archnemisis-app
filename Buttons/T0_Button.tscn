@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/T0_Button.gd" type="Script" id=1]
 [ext_resource path="res://Icons/Toxic.png" type="Texture" id=2]
@@ -14,20 +14,27 @@ font_data = ExtResource( 5 )
 use_filter = true
 font_data = ExtResource( 5 )
 
-[node name="IconButton" type="Control" groups=[
-"Button",
-"T0",
-]]
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0.0901961, 0.709804, 0, 1, 0, 0.529412, 1, 1 )
+
+[node name="IconButton" type="Control" groups=["Button", "T0"]]
 mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TrackedPart" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 27.5, 60, -5, 27.5, 27.5, -5, 60, 27.5, 27.5, 60 )
+width = 2.0
+default_color = Color( 0.898039, 1, 0, 0.509804 )
+
 [node name="TextureButton" type="TextureButton" parent="."]
 margin_left = -1.0
 margin_right = 55.0
 margin_bottom = 55.0
+mouse_default_cursor_shape = 2
 button_mask = 7
 texture_normal = ExtResource( 2 )
 script = ExtResource( 3 )
@@ -45,6 +52,13 @@ texture = ExtResource( 4 )
 [node name="Search_Glow" type="Sprite" parent="."]
 visible = false
 modulate = Color( 0.219608, 1, 0, 0.509804 )
+position = Vector2( 27.5955, 26.5378 )
+scale = Vector2( 1.36039, 1.36039 )
+texture = ExtResource( 4 )
+
+[node name="Missing_Glow" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0, 0, 0.815686 )
 position = Vector2( 27.5955, 26.5378 )
 scale = Vector2( 1.36039, 1.36039 )
 texture = ExtResource( 4 )
@@ -93,6 +107,35 @@ __meta__ = {
 points = PoolVector2Array( 0, 55, 55, 55, 55, 0, 0, 0, 0, 55 )
 width = 2.0
 default_color = Color( 1, 1, 0, 0.509804 )
+
+[node name="PartCounter" type="Label" parent="."]
+margin_left = 56.0
+margin_right = 72.0
+margin_bottom = 19.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="PartCounter"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IsPartOf" type="Line2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.3 )
+position = Vector2( 56, 0 )
+scale = Vector2( 0.290002, 0.33 )
+points = PoolVector2Array( 0, 27, -2, -2, 27, 0, 56, -2, 54, 28, 56, 56, 27, 54, -2, 56, 0, 27 )
+width = 2.0
+gradient = SubResource( 3 )
+antialiased = true
 
 [connection signal="left" from="TextureButton" to="." method="_on_TextureButton_left"]
 [connection signal="middle" from="TextureButton" to="." method="_on_TextureButton_middle"]

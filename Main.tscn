@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://Buttons/T0_Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Icons/Toxic.png" type="Texture" id=2]
@@ -71,6 +71,10 @@
 [ext_resource path="res://Icons/Box.png" type="Texture" id=69]
 [ext_resource path="res://Info.gd" type="Script" id=70]
 [ext_resource path="res://diffusion/Rob/Roboto-Regular.ttf" type="DynamicFontData" id=71]
+[ext_resource path="res://SaveFileButton.gd" type="Script" id=72]
+[ext_resource path="res://SyncWithFile.gd" type="Script" id=73]
+[ext_resource path="res://Icons/Weapons.png" type="Texture" id=74]
+[ext_resource path="res://CloseApp.gd" type="Script" id=75]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 71 )
@@ -85,8 +89,8 @@ font_data = ExtResource( 71 )
 script = ExtResource( 5 )
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 1921.0
-margin_bottom = 1087.0
+margin_right = 1920.0
+margin_bottom = 1060.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -117,8 +121,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Arcane Buffer" parent="T1" instance=ExtResource( 1 )]
-icon_name = "Arcane Buffer"
+[node name="ArcaneBuffer" parent="T1" instance=ExtResource( 1 )]
+display_name = "Arcane Buffer"
+mod_name = "Arcane Buffer"
 icon_texture = ExtResource( 18 )
 rewards = [ "Essences" ]
 monster_power = "Monster has augmented Energy Shield powers and releases a stunning nova when Energy Shield breaks"
@@ -126,7 +131,8 @@ monster_power = "Monster has augmented Energy Shield powers and releases a stunn
 [node name="Berserker" parent="T1" instance=ExtResource( 1 )]
 margin_left = 100.0
 margin_right = 100.0
-icon_name = "Berserker"
+display_name = "Berserker"
+mod_name = "Berserker"
 icon_texture = ExtResource( 24 )
 rewards = [ "Uniques" ]
 monster_power = "Monster Enrages as it loses life"
@@ -134,7 +140,8 @@ monster_power = "Monster Enrages as it loses life"
 [node name="Bloodletter" parent="T1" instance=ExtResource( 1 )]
 margin_left = 200.0
 margin_right = 200.0
-icon_name = "Bloodletter"
+display_name = "Bloodletter"
+mod_name = "Bloodletter"
 icon_texture = ExtResource( 19 )
 rewards = [ "Weapons", "Trinkets" ]
 monster_power = "Monster has augmented Bleed powers. Monster Maims nearby enemies"
@@ -143,7 +150,8 @@ description = "Items dropped from the Monster and its Minions are Corrupted"
 [node name="Bombardier" parent="T1" instance=ExtResource( 1 )]
 margin_top = 90.0
 margin_bottom = 90.0
-icon_name = "Bombardier"
+display_name = "Bombardier"
+mod_name = "Bombardier"
 icon_texture = ExtResource( 20 )
 rewards = [ "Weapons", "Armor" ]
 monster_power = "Monster has augmented Projectile powers and periodically unleashes a barrage of mortars"
@@ -153,7 +161,8 @@ margin_left = 100.0
 margin_top = 90.0
 margin_right = 100.0
 margin_bottom = 90.0
-icon_name = "Bonebreaker"
+display_name = "Bonebreaker"
+mod_name = "Bonebreaker"
 icon_texture = ExtResource( 21 )
 rewards = [ "Generic", "Weapons" ]
 monster_power = "Monster has augmented Stun powers. Monster hits are slower and can't be evaded"
@@ -163,7 +172,8 @@ margin_left = 200.0
 margin_top = 90.0
 margin_right = 200.0
 margin_bottom = 90.0
-icon_name = "Chaosweaver"
+display_name = "Chaosweaver"
+mod_name = "Chaosweaver"
 icon_texture = ExtResource( 3 )
 rewards = [ "Gems" ]
 monster_power = "Monster is imbued with Chaos Damage and Resistance"
@@ -171,7 +181,8 @@ monster_power = "Monster is imbued with Chaos Damage and Resistance"
 [node name="Consecrator" parent="T1" instance=ExtResource( 1 )]
 margin_top = 180.0
 margin_bottom = 180.0
-icon_name = "Consecrator"
+display_name = "Consecrator"
+mod_name = "Consecrator"
 icon_texture = ExtResource( 22 )
 rewards = [ "Fragments" ]
 monster_power = "Monster periodically creates Consecrated Ground, healing allies and making them immune to curses and ailments"
@@ -181,7 +192,8 @@ margin_left = 100.0
 margin_top = 180.0
 margin_right = 100.0
 margin_bottom = 180.0
-icon_name = "Deadeye"
+display_name = "Deadeye"
+mod_name = "Deadeye"
 icon_texture = ExtResource( 6 )
 rewards = [ "Armor", "Trinkets" ]
 monster_power = "Monster is Accurate and applies Marks"
@@ -191,7 +203,8 @@ margin_left = 200.0
 margin_top = 180.0
 margin_right = 200.0
 margin_bottom = 180.0
-icon_name = "Dynamo"
+display_name = "Dynamo"
+mod_name = "Dynamo"
 icon_texture = ExtResource( 29 )
 rewards = [ "Generic", "Trinkets" ]
 monster_power = "Monster has augmented Shock powers"
@@ -199,7 +212,8 @@ monster_power = "Monster has augmented Shock powers"
 [node name="Echoist" parent="T1" instance=ExtResource( 1 )]
 margin_top = 270.0
 margin_bottom = 270.0
-icon_name = "Echoist"
+display_name = "Echoist"
+mod_name = "Echoist"
 icon_texture = ExtResource( 30 )
 rewards = [ "Generic", "Currency" ]
 monster_power = "Monster repeats skills additional times"
@@ -209,7 +223,8 @@ margin_left = 100.0
 margin_top = 270.0
 margin_right = 100.0
 margin_bottom = 270.0
-icon_name = "Flameweaver"
+display_name = "Flameweaver"
+mod_name = "Flameweaver"
 icon_texture = ExtResource( 25 )
 rewards = [ "Weapons" ]
 monster_power = "Monster is imbued with Fire Damage and Resistance"
@@ -219,7 +234,8 @@ margin_left = 200.0
 margin_top = 270.0
 margin_right = 200.0
 margin_bottom = 270.0
-icon_name = "Frenzied"
+display_name = "Frenzied"
+mod_name = "Frenzied"
 icon_texture = ExtResource( 28 )
 rewards = [ "Generic", "Uniques" ]
 monster_power = "Monster and allies periodically Enrage"
@@ -227,7 +243,8 @@ monster_power = "Monster and allies periodically Enrage"
 [node name="Frostweaver" parent="T1" instance=ExtResource( 1 )]
 margin_top = 360.0
 margin_bottom = 360.0
-icon_name = "Frostweaver"
+display_name = "Frostweaver"
+mod_name = "Frostweaver"
 icon_texture = ExtResource( 26 )
 rewards = [ "Armor" ]
 monster_power = "Monster is imbued with Cold Damage and Resistance"
@@ -237,7 +254,8 @@ margin_left = 100.0
 margin_top = 360.0
 margin_right = 100.0
 margin_bottom = 360.0
-icon_name = "Gargantuan"
+display_name = "Gargantuan"
+mod_name = "Gargantuan"
 icon_texture = ExtResource( 23 )
 rewards = [ "Currency" ]
 monster_power = "Monster is massive, granting more Life, Area of Effect, and Damage"
@@ -247,7 +265,8 @@ margin_left = 200.0
 margin_top = 360.0
 margin_right = 200.0
 margin_bottom = 360.0
-icon_name = "Hasted"
+display_name = "Hasted"
+mod_name = "Hasted"
 icon_texture = ExtResource( 27 )
 rewards = [ "Generic" ]
 monster_power = "Monster is faster"
@@ -255,7 +274,8 @@ monster_power = "Monster is faster"
 [node name="Incendiary" parent="T1" instance=ExtResource( 1 )]
 margin_top = 450.0
 margin_bottom = 450.0
-icon_name = "Incendiary"
+display_name = "Incendiary"
+mod_name = "Incendiary"
 icon_texture = ExtResource( 10 )
 rewards = [ "Generic", "Weapons" ]
 monster_power = "Monster has augmented Ignite powers"
@@ -265,7 +285,8 @@ margin_left = 100.0
 margin_top = 450.0
 margin_right = 100.0
 margin_bottom = 450.0
-icon_name = "Juggernaut"
+display_name = "Juggernaut"
+mod_name = "Juggernaut"
 icon_texture = ExtResource( 13 )
 rewards = [ "Harbinger" ]
 monster_power = "Monster cannot be Slowed or Stunned. Monster gains Endurance Charges"
@@ -275,7 +296,8 @@ margin_left = 200.0
 margin_top = 450.0
 margin_right = 200.0
 margin_bottom = 450.0
-icon_name = "Malediction"
+display_name = "Malediction"
+mod_name = "Malediction"
 icon_texture = ExtResource( 14 )
 rewards = [ "Cards" ]
 monster_power = "Monster has a weakening Aura"
@@ -283,7 +305,8 @@ monster_power = "Monster has a weakening Aura"
 [node name="Opulent" parent="T1" instance=ExtResource( 1 )]
 margin_top = 540.0
 margin_bottom = 540.0
-icon_name = "Opulent"
+display_name = "Opulent"
+mod_name = "Opulent"
 icon_texture = ExtResource( 11 )
 monster_power = "Monster is fabulously wealthy"
 
@@ -292,7 +315,8 @@ margin_left = 100.0
 margin_top = 540.0
 margin_right = 100.0
 margin_bottom = 540.0
-icon_name = "Overcharged"
+display_name = "Overcharged"
+mod_name = "Overcharged"
 icon_texture = ExtResource( 8 )
 rewards = [ "Trinkets", "Trinkets" ]
 monster_power = "Monster grants Charges to itself and Allies over time"
@@ -302,7 +326,8 @@ margin_left = 200.0
 margin_top = 540.0
 margin_right = 200.0
 margin_bottom = 540.0
-icon_name = "Permafrost"
+display_name = "Permafrost"
+mod_name = "Permafrost"
 icon_texture = ExtResource( 12 )
 rewards = [ "Generic", "Armor" ]
 monster_power = "Monster has augmented Freeze and Chill powers"
@@ -310,27 +335,30 @@ monster_power = "Monster has augmented Freeze and Chill powers"
 [node name="Sentinel" parent="T1" instance=ExtResource( 1 )]
 margin_top = 630.0
 margin_bottom = 630.0
-icon_name = "Sentinel"
+display_name = "Sentinel"
+mod_name = "Sentinel"
 icon_texture = ExtResource( 15 )
 rewards = [ "Armor", "Armor" ]
 monster_power = "Monster is imbued with Block and Spell Block. Monster Triggers Reckoning when hit"
 
-[node name="Soul conduit" parent="T1" instance=ExtResource( 1 )]
+[node name="SoulConduit" parent="T1" instance=ExtResource( 1 )]
 margin_left = 100.0
 margin_top = 630.0
 margin_right = 100.0
 margin_bottom = 630.0
-icon_name = "Soul conduit"
+display_name = "Soul Conduit"
+mod_name = "Soul Conduit"
 icon_texture = ExtResource( 9 )
 rewards = [ "Maps" ]
 monster_power = "On death, Monster and nearby Allies are revived"
 
-[node name="Steel-infused" parent="T1" instance=ExtResource( 1 )]
+[node name="Steel-Infused" parent="T1" instance=ExtResource( 1 )]
 margin_left = 200.0
 margin_top = 630.0
 margin_right = 200.0
 margin_bottom = 630.0
-icon_name = "Steel-infused"
+display_name = "Steel-Infused"
+mod_name = "Steel-Infused"
 icon_texture = ExtResource( 16 )
 rewards = [ "Weapons" ]
 monster_power = "Monster is imbued with Physical Damage and Physical Damage Reduction"
@@ -338,7 +366,8 @@ monster_power = "Monster is imbued with Physical Damage and Physical Damage Redu
 [node name="Stormweaver" parent="T1" instance=ExtResource( 1 )]
 margin_top = 720.0
 margin_bottom = 720.0
-icon_name = "Stormweaver"
+display_name = "Stormweaver"
+mod_name = "Stormweaver"
 icon_texture = ExtResource( 7 )
 rewards = [ "Trinkets" ]
 monster_power = "Monster is imbued with Lightning Damage and Resistance"
@@ -348,7 +377,8 @@ margin_left = 100.0
 margin_top = 720.0
 margin_right = 100.0
 margin_bottom = 720.0
-icon_name = "Toxic"
+display_name = "Toxic"
+mod_name = "Toxic"
 icon_texture = ExtResource( 2 )
 rewards = [ "Generic", "Gems" ]
 monster_power = "Monster has augmented Poison powers"
@@ -358,12 +388,11 @@ margin_left = 200.0
 margin_top = 720.0
 margin_right = 200.0
 margin_bottom = 720.0
-icon_name = "Vampiric"
+display_name = "Vampiric"
+mod_name = "Vampiric"
 icon_texture = ExtResource( 17 )
 rewards = [ "Fossils" ]
 monster_power = "Monster has augmented Life Leech powers"
-
-[node name="Sprite" type="Sprite" parent="T1"]
 
 [node name="T2" type="GridContainer" parent="."]
 margin_left = 410.0
@@ -379,10 +408,11 @@ __meta__ = {
 }
 
 [node name="Assassin" parent="T2" instance=ExtResource( 4 )]
-icon_name = "Assassin"
+display_name = "Assassin"
+mod_name = "Assassin"
 icon_texture = ExtResource( 31 )
 recipe_icon_textures = [ ExtResource( 6 ), ExtResource( 17 ) ]
-recipe_names = [ "Deadeye", "Vampiric" ]
+recipe_names = [ "T1/Deadeye", "T1/Vampiric" ]
 rewards = [ "Currency", "Currency" ]
 monster_power = "Monster has augmented Critical powers and has Shroud Walker"
 recipe_search_string = "^(dea|vam)"
@@ -390,10 +420,11 @@ recipe_search_string = "^(dea|vam)"
 [node name="CorpseDetonator" parent="T2" instance=ExtResource( 4 )]
 margin_left = 220.0
 margin_right = 220.0
-icon_name = "Corpse Detonator"
+display_name = "Corpse Detonator"
+mod_name = "Corpse Detonator"
 icon_texture = ExtResource( 32 )
 recipe_icon_textures = [ ExtResource( 33 ), ExtResource( 10 ) ]
-recipe_names = [ "Necromancer", "Incendiary" ]
+recipe_names = [ "T2/Necromancer", "T1/Incendiary" ]
 rewards = [ "Cards", "Cards" ]
 monster_power = "Monster detonates nearby Corpses. Monster periodically creates Corpses"
 recipe_search_string = "^(nec|inc)"
@@ -401,10 +432,11 @@ recipe_search_string = "^(nec|inc)"
 [node name="Corrupter" parent="T2" instance=ExtResource( 4 )]
 margin_left = 440.0
 margin_right = 440.0
-icon_name = "Corrupter"
+display_name = "Corrupter"
+mod_name = "Corrupter"
 icon_texture = ExtResource( 34 )
 recipe_icon_textures = [ ExtResource( 19 ), ExtResource( 3 ) ]
-recipe_names = [ "Bloodletter", "Chaosweaver" ]
+recipe_names = [ "T1/Bloodletter", "T1/Chaosweaver" ]
 rewards = [ "Abyss", "Abyss" ]
 monster_power = "Monster inflicts Corrupted Blood on Hit and when Hit. Minions create Corrupted Bubbles on death"
 description = "Items dropped from the Monster and its Minions are Corrupted"
@@ -413,10 +445,11 @@ recipe_search_string = "^(blo|cha)"
 [node name="DroughtBringer" parent="T2" instance=ExtResource( 4 )]
 margin_left = 660.0
 margin_right = 660.0
-icon_name = "Drought Bringer"
+display_name = "Drought Bringer"
+mod_name = "Drought Bringer"
 icon_texture = ExtResource( 35 )
 recipe_icon_textures = [ ExtResource( 6 ), ExtResource( 14 ) ]
-recipe_names = [ "Deadeye", "Malediction" ]
+recipe_names = [ "T1/Deadeye", "T1/Malediction" ]
 rewards = [ "Labyrinth", "Labyrinth" ]
 monster_power = "Monster disables Flask effects on hit. Monster has an aura that drains Flask charges and prevents gaining Flask charges"
 recipe_search_string = "^(mal|dea)"
@@ -424,10 +457,11 @@ recipe_search_string = "^(mal|dea)"
 [node name="Entangler" parent="T2" instance=ExtResource( 4 )]
 margin_left = 880.0
 margin_right = 880.0
-icon_name = "Entangler"
+display_name = "Entangler"
+mod_name = "Entangler"
 icon_texture = ExtResource( 36 )
 recipe_icon_textures = [ ExtResource( 19 ), ExtResource( 2 ) ]
-recipe_names = [ "Bloodletter", "Toxic" ]
+recipe_names = [ "T1/Bloodletter", "T1/Toxic" ]
 rewards = [ "Fossils", "Fossils" ]
 monster_power = "Monster creates Thorned Vines that slow and deal Chaos Damage over time."
 recipe_search_string = "^(tox|blo)"
@@ -435,10 +469,11 @@ recipe_search_string = "^(tox|blo)"
 [node name="Executioner" parent="T2" instance=ExtResource( 4 )]
 margin_left = 1100.0
 margin_right = 1100.0
-icon_name = "Executioner"
+display_name = "Executioner"
+mod_name = "Executioner"
 icon_texture = ExtResource( 37 )
 recipe_icon_textures = [ ExtResource( 24 ), ExtResource( 28 ) ]
-recipe_names = [ "Berserker", "Frenzied" ]
+recipe_names = [ "T1/Berserker", "T1/Frenzied" ]
 rewards = [ "Legion", "Breach" ]
 monster_power = "Monster gains Damage based on missing enemy Life. Monster has an aura that prevents enemies recovering Life and Energy Shield above 50%"
 recipe_search_string = "^(fre|ber)"
@@ -446,10 +481,11 @@ recipe_search_string = "^(fre|ber)"
 [node name="FlameStrider" parent="T2" instance=ExtResource( 4 )]
 margin_left = 1320.0
 margin_right = 1320.0
-icon_name = "Flame Strider"
+display_name = "Flame Strider"
+mod_name = "Flame Strider"
 icon_texture = ExtResource( 38 )
 recipe_icon_textures = [ ExtResource( 25 ), ExtResource( 27 ) ]
-recipe_names = [ "Flameweaver", "Hasted" ]
+recipe_names = [ "T1/Flameweaver", "T1/Hasted" ]
 rewards = [ "Weapons", "Weapons", "Weapons" ]
 monster_power = "Monster leaves Burning Ground in its wake. Minions create Flame Bearers on death"
 recipe_search_string = "^(flamew|has)"
@@ -457,10 +493,11 @@ recipe_search_string = "^(flamew|has)"
 [node name="FrostStrider" parent="T2" instance=ExtResource( 4 )]
 margin_left = 1540.0
 margin_right = 1540.0
-icon_name = "Frost Strider"
+display_name = "Frost Strider"
+mod_name = "Frost Strider"
 icon_texture = ExtResource( 39 )
 recipe_icon_textures = [ ExtResource( 26 ), ExtResource( 27 ) ]
-recipe_names = [ "Frostweaver", "Hasted" ]
+recipe_names = [ "T1/Frostweaver", "T1/Hasted" ]
 rewards = [ "Armor", "Armor", "Armor" ]
 monster_power = "Monster leaves Chilling Ground in its wake. Minions create Frost Bearers on death"
 recipe_search_string = "^(frostw|has)"
@@ -468,10 +505,11 @@ recipe_search_string = "^(frostw|has)"
 [node name="HeraldingMinions" parent="T2" instance=ExtResource( 4 )]
 margin_top = 170.0
 margin_bottom = 170.0
-icon_name = "Heralding Minions"
+display_name = "Herald. Minions"
+mod_name = "Heralding Minions"
 icon_texture = ExtResource( 40 )
 recipe_icon_textures = [ ExtResource( 18 ), ExtResource( 29 ) ]
-recipe_names = [ "Arcane Buffer", "Dynamo" ]
+recipe_names = [ "T1/ArcaneBuffer", "T1/Dynamo" ]
 rewards = [ "Fragments", "Fragments" ]
 monster_power = "Monster's minions summon invulnerable Lightning Totems on death"
 recipe_search_string = "^(dyn|arc)"
@@ -481,10 +519,11 @@ margin_left = 220.0
 margin_top = 170.0
 margin_right = 220.0
 margin_bottom = 170.0
-icon_name = "Hexer"
+display_name = "Hexer"
+mod_name = "Hexer"
 icon_texture = ExtResource( 42 )
 recipe_icon_textures = [ ExtResource( 3 ), ExtResource( 30 ) ]
-recipe_names = [ "Chaosweaver", "Echoist" ]
+recipe_names = [ "T1/Chaosweaver", "T1/Echoist" ]
 rewards = [ "Essences", "Essences" ]
 monster_power = "Monster is Hexproof. Monster is followed by a Hexing Effigy that creates Hexing areas"
 recipe_search_string = "^(cha|ech)"
@@ -494,10 +533,11 @@ margin_left = 440.0
 margin_top = 170.0
 margin_right = 440.0
 margin_bottom = 170.0
-icon_name = "Ice Prison"
+display_name = "Ice Prison"
+mod_name = "Ice Prison"
 icon_texture = ExtResource( 41 )
 recipe_icon_textures = [ ExtResource( 12 ), ExtResource( 15 ) ]
-recipe_names = [ "Permafrost", "Sentinel" ]
+recipe_names = [ "T1/Permafrost", "T1/Sentinel" ]
 rewards = [ "Armor", "Armor" ]
 monster_power = "Monster periodically entraps players in a cage of ice"
 description = "Rewards are rolled 1 additional time, choosing the rarest result"
@@ -508,10 +548,11 @@ margin_left = 660.0
 margin_top = 170.0
 margin_right = 660.0
 margin_bottom = 170.0
-icon_name = "Magma Barrier"
+display_name = "Magma Barrier"
+mod_name = "Magma Barrier"
 icon_texture = ExtResource( 43 )
 recipe_icon_textures = [ ExtResource( 21 ), ExtResource( 10 ) ]
-recipe_names = [ "Bonebreaker", "Incendiary" ]
+recipe_names = [ "T1/Bonebreaker", "T1/Incendiary" ]
 rewards = [ "Weapons", "Weapons" ]
 monster_power = "Monster is protected by a Magmatic shield that explodes when depleted. Monster periodically creates Volatile Flamebloods"
 description = "Rewards are rolled 1 additional time, choosing the rarest result"
@@ -522,10 +563,11 @@ margin_left = 880.0
 margin_top = 170.0
 margin_right = 880.0
 margin_bottom = 170.0
-icon_name = "Mana Siphoner"
+display_name = "Mana Siphoner"
+mod_name = "Mana Siphoner"
 icon_texture = ExtResource( 45 )
 recipe_icon_textures = [ ExtResource( 22 ), ExtResource( 29 ) ]
-recipe_names = [ "Consecrator", "Dynamo" ]
+recipe_names = [ "T1/Consecrator", "T1/Dynamo" ]
 rewards = [ "Trinkets", "Trinkets" ]
 monster_power = "Monster is surrounded by a ring that deals Lightning Damage over time as well as draining Mana"
 description = "Rewards are rolled 1 additional time, choosing the rarest result"
@@ -536,10 +578,11 @@ margin_left = 1100.0
 margin_top = 170.0
 margin_right = 1100.0
 margin_bottom = 170.0
-icon_name = "Mirror Image"
+display_name = "Mirror Image"
+mod_name = "Mirror Image"
 icon_texture = ExtResource( 44 )
 recipe_icon_textures = [ ExtResource( 30 ), ExtResource( 9 ) ]
-recipe_names = [ "Echoist", "Soul conduit" ]
+recipe_names = [ "T1/Echoist", "T1/SoulConduit" ]
 rewards = [ "Scarabs" ]
 monster_power = "Monster can create illusions of itself"
 description = "Rewards are rolled 2 additional times, choosing the rarest result"
@@ -550,10 +593,11 @@ margin_left = 1320.0
 margin_top = 170.0
 margin_right = 1320.0
 margin_bottom = 170.0
-icon_name = "Necromancer"
+display_name = "Necromancer"
+mod_name = "Necromancer"
 icon_texture = ExtResource( 33 )
 recipe_icon_textures = [ ExtResource( 20 ), ExtResource( 8 ) ]
-recipe_names = [ "Bombardier", "Overcharged" ]
+recipe_names = [ "T1/Bombardier", "T1/Overcharged" ]
 rewards = [ "Generic" ]
 monster_power = "Monster can raise Undead. Minions are empowered and revive shortly after dying"
 description = "Rewards are rolled 2 additional times, choosing the rarest result"
@@ -564,10 +608,11 @@ margin_left = 1540.0
 margin_top = 170.0
 margin_right = 1540.0
 margin_bottom = 170.0
-icon_name = "Rejuvenating"
+display_name = "Rejuvenating"
+mod_name = "Rejuvenating"
 icon_texture = ExtResource( 47 )
 recipe_icon_textures = [ ExtResource( 23 ), ExtResource( 17 ) ]
-recipe_names = [ "Gargantuan", "Vampiric" ]
+recipe_names = [ "T1/Gargantuan", "T1/Vampiric" ]
 rewards = [ "Currency" ]
 monster_power = "Monster has Life Regeneration. Periodically releases a wave that heals nearby allies and prevents enemy Life and Energy Shield recovery"
 description = "Rewards are rolled 1 additional time, choosing the rarest result"
@@ -576,10 +621,11 @@ recipe_search_string = "^(gar|vam)"
 [node name="StormStrider" parent="T2" instance=ExtResource( 4 )]
 margin_top = 340.0
 margin_bottom = 340.0
-icon_name = "Storm Strider"
+display_name = "Storm Strider"
+mod_name = "Storm Strider"
 icon_texture = ExtResource( 46 )
 recipe_icon_textures = [ ExtResource( 27 ), ExtResource( 7 ) ]
-recipe_names = [ "Hasted", "Stormweaver" ]
+recipe_names = [ "T1/Hasted", "T1/Stormweaver" ]
 rewards = [ "Trinkets", "Trinkets", "Trinkets" ]
 monster_power = "Monster leaves Shocking Ground in its wake and spawns Lightning Mirages when hit. Minions create Storm Bearers on death"
 recipe_search_string = "^(stormw|has)"
@@ -598,22 +644,24 @@ __meta__ = {
 }
 
 [node name="Abberath" parent="T3-1" instance=ExtResource( 4 )]
-icon_name = "Abberath"
+display_name = "Abberath"
+mod_name = "Abberath-Touched"
 icon_texture = ExtResource( 58 )
 recipe_icon_textures = [ ExtResource( 38 ), ExtResource( 28 ), ExtResource( 47 ) ]
-recipe_names = [ "Flame Strider", "Frenzied", "Rejuvenating" ]
+recipe_names = [ "T2/FlameStrider", "T1/Frenzied", "T2/Rejuvenating" ]
 rewards = [ "Trinkets", "Trinkets", "Maps" ]
 monster_power = "Monster uses the abilities of Abberath"
 description = "Rewards are rolled 4 additional times, choosing the rarest result"
 recipe_search_string = "^(flame.s|rej|fre)"
 
-[node name="Arakaall" parent="T3-1" instance=ExtResource( 4 )]
+[node name="Arakaali" parent="T3-1" instance=ExtResource( 4 )]
 margin_left = 220.0
 margin_right = 220.0
-icon_name = "Arakaali"
+display_name = "Arakaali"
+mod_name = "Arakaali-Touched"
 icon_texture = ExtResource( 59 )
 recipe_icon_textures = [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 36 ) ]
-recipe_names = [ "Assassin", "Corpse Detonator", "Entangler" ]
+recipe_names = [ "T2/Assassin", "T2/CorpseDetonator", "T2/Entangler" ]
 rewards = [ "Cards" ]
 monster_power = "Monster uses the abilities of Arakaali"
 description = "All Reward Types are Divination Cards"
@@ -622,10 +670,11 @@ recipe_search_string = "^(corp|ent|ass)"
 [node name="BrineKing" parent="T3-1" instance=ExtResource( 4 )]
 margin_left = 440.0
 margin_right = 440.0
-icon_name = "Brine King"
+display_name = "Brine King"
+mod_name = "Brine King-Touched"
 icon_texture = ExtResource( 60 )
 recipe_icon_textures = [ ExtResource( 40 ), ExtResource( 41 ), ExtResource( 46 ) ]
-recipe_names = [ "Heralding Minions", "Ice Prison", "Storm Strider" ]
+recipe_names = [ "T2/HeraldingMinions", "T2/IcePrison", "T2/StormStrider" ]
 rewards = [ "Armor", "Armor", "Armor" ]
 monster_power = "Monster uses the abilities of the Brine King"
 description = "Rewards are rolled 6 additional times, choosing the rarest result"
@@ -634,10 +683,11 @@ recipe_search_string = "^(ice|storm.s|her)"
 [node name="Crystal-skinned" parent="T3-1" instance=ExtResource( 4 )]
 margin_left = 660.0
 margin_right = 660.0
-icon_name = "Crystal-skinned"
+display_name = "Crystal-Skinned"
+mod_name = "Crystal-Skinned"
 icon_texture = ExtResource( 48 )
 recipe_icon_textures = [ ExtResource( 24 ), ExtResource( 12 ), ExtResource( 47 ) ]
-recipe_names = [ "Berserker", "Permafrost", "Rejuvenating" ]
+recipe_names = [ "T1/Berserker", "T1/Permafrost", "T2/Rejuvenating" ]
 rewards = [ "Harbinger", "Harbinger" ]
 monster_power = "Monster triggers the creation of Crystals when hit. Crystals explode when the Monster dies"
 recipe_search_string = "^(rej|per|ber)"
@@ -645,10 +695,11 @@ recipe_search_string = "^(rej|per|ber)"
 [node name="Effigy" parent="T3-1" instance=ExtResource( 4 )]
 margin_left = 880.0
 margin_right = 880.0
-icon_name = "Effigy"
+display_name = "Effigy"
+mod_name = "Effigy"
 icon_texture = ExtResource( 49 )
 recipe_icon_textures = [ ExtResource( 34 ), ExtResource( 42 ), ExtResource( 14 ) ]
-recipe_names = [ "Corrupter", "Hexer", "Malediction" ]
+recipe_names = [ "T2/Corrupter", "T2/Hexer", "T1/Malediction" ]
 rewards = [ "Cards", "Cards" ]
 monster_power = "Monster creates an Effigy of the player. Damage dealt to the Effigy is also reflected to the bonded player"
 description = "Rewards are rolled 1 additional time, choosing the rarest result"
@@ -657,10 +708,11 @@ recipe_search_string = "^(hex|mal|corr)"
 [node name="EmpoweredElements" parent="T3-1" instance=ExtResource( 4 )]
 margin_left = 1100.0
 margin_right = 1100.0
-icon_name = "Emp. Elements"
+display_name = "Emp. Elements"
+mod_name = "Empowered Elements"
 icon_texture = ExtResource( 50 )
 recipe_icon_textures = [ ExtResource( 3 ), ExtResource( 52 ), ExtResource( 16 ) ]
-recipe_names = [ "Chaosweaver", "Evocationist", "Steel-infused" ]
+recipe_names = [ "T1/Chaosweaver", "T3-2/Evocationist", "T1/Steel-Infused" ]
 rewards = [ "Uniques", "Uniques" ]
 monster_power = "Monster cycles between imbued damage of a particular type and immunity to all other damage types"
 description = "Rewards are rolled 1 additional time, choosing the rarest result"
@@ -669,10 +721,11 @@ recipe_search_string = "^(evo|ste|cha)"
 [node name="EmpoweringMinions" parent="T3-1" instance=ExtResource( 4 )]
 margin_left = 1320.0
 margin_right = 1320.0
-icon_name = "Emp. Minions"
+display_name = "Emp. Minions"
+mod_name = "Empowered Minions"
 icon_texture = ExtResource( 51 )
 recipe_icon_textures = [ ExtResource( 37 ), ExtResource( 23 ), ExtResource( 33 ) ]
-recipe_names = [ "Executioner", "Gargantuan", "Necromancer" ]
+recipe_names = [ "T2/Executioner", "T1/Gargantuan", "T2/Necromancer" ]
 rewards = [ "Blight", "Ritual" ]
 monster_power = "Monster's minions are empowered. Minions empower the Monster with additional modifiers on death"
 recipe_search_string = "^(nec|exe|gar)"
@@ -691,10 +744,11 @@ __meta__ = {
 }
 
 [node name="Evocationist" parent="T3-2" instance=ExtResource( 4 )]
-icon_name = "Evocationist"
+display_name = "Evocationist"
+mod_name = "Evocationist"
 icon_texture = ExtResource( 52 )
 recipe_icon_textures = [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 7 ) ]
-recipe_names = [ "Flameweaver", "Frostweaver", "Stormweaver" ]
+recipe_names = [ "T1/Flameweaver", "T1/Frostweaver", "T1/Stormweaver" ]
 rewards = [ "Generic", "Weapons", "Armor", "Trinkets" ]
 monster_power = "Monster is imbued with Elemental Damage, Resistances and Ailments"
 recipe_search_string = "^(flamew|frostw|stormw)"
@@ -702,10 +756,11 @@ recipe_search_string = "^(flamew|frostw|stormw)"
 [node name="Lunaris" parent="T3-2" instance=ExtResource( 4 )]
 margin_left = 220.0
 margin_right = 220.0
-icon_name = "Lunaris"
+display_name = "Lunaris"
+mod_name = "Lunaris-Touched"
 icon_texture = ExtResource( 64 )
 recipe_icon_textures = [ ExtResource( 51 ), ExtResource( 39 ), ExtResource( 53 ) ]
-recipe_names = [ "Emp. Minions", "Frost Strider", "Invulnerable" ]
+recipe_names = [ "T3-1/EmpoweringMinions", "T2/FrostStrider", "T3-2/Invulnerable" ]
 rewards = [ "Uniques" ]
 monster_power = "Monster uses the abilities of Lunaris"
 description = "All Reward Types have an additional reward"
@@ -714,10 +769,11 @@ recipe_search_string = "^(empoweri|inv|frost.s)"
 [node name="Solaris" parent="T3-2" instance=ExtResource( 4 )]
 margin_left = 440.0
 margin_right = 440.0
-icon_name = "Solaris"
+display_name = "Solaris"
+mod_name = "Solaris-Touched"
 icon_texture = ExtResource( 63 )
 recipe_icon_textures = [ ExtResource( 51 ), ExtResource( 53 ), ExtResource( 43 ) ]
-recipe_names = [ "Emp. Minions", "Invulnerable", "Magma Barrier" ]
+recipe_names = [ "T3-1/EmpoweringMinions", "T3-2/Invulnerable", "T2/MagmaBarrier" ]
 rewards = [ "Scarabs" ]
 monster_power = "Monster uses the abilities of Solaris"
 description = "All Reward Types have an additional reward"
@@ -726,10 +782,11 @@ recipe_search_string = "^(empoweri|inv|mag)"
 [node name="SoulEater" parent="T3-2" instance=ExtResource( 4 )]
 margin_left = 660.0
 margin_right = 660.0
-icon_name = "Soul Eater"
+display_name = "Soul Eater"
+mod_name = "Soul Eater"
 icon_texture = ExtResource( 54 )
 recipe_icon_textures = [ ExtResource( 23 ), ExtResource( 33 ), ExtResource( 9 ) ]
-recipe_names = [ "Gargantuan", "Necromancer", "Soul conduit" ]
+recipe_names = [ "T1/Gargantuan", "T2/Necromancer", "T1/SoulConduit" ]
 rewards = [ "Maps", "Maps" ]
 monster_power = "Monster empowers when nearby allies die. Periodically summons Phantasms"
 recipe_search_string = "^(nec|soul.c|gar)"
@@ -737,10 +794,11 @@ recipe_search_string = "^(nec|soul.c|gar)"
 [node name="Shakari" parent="T3-2" instance=ExtResource( 4 )]
 margin_left = 880.0
 margin_right = 880.0
-icon_name = "Shakari"
+display_name = "Shakari"
+mod_name = "Shakari-Touched"
 icon_texture = ExtResource( 61 )
 recipe_icon_textures = [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 54 ) ]
-recipe_names = [ "Drought Bringer", "Entangler", "Soul Eater" ]
+recipe_names = [ "T2/DroughtBringer", "T2/Entangler", "T3-2/SoulEater" ]
 rewards = [ "Uniques" ]
 monster_power = "Monster uses the abilities of Shakari"
 description = "All Reward Types are Uniques"
@@ -749,10 +807,11 @@ recipe_search_string = "^(soul.e|ent|dro)"
 [node name="Tukohama" parent="T3-2" instance=ExtResource( 4 )]
 margin_top = 250.0
 margin_bottom = 250.0
-icon_name = "Tukohama"
+display_name = "Tukohama"
+mod_name = "Tukohama-Touched"
 icon_texture = ExtResource( 62 )
 recipe_icon_textures = [ ExtResource( 21 ), ExtResource( 37 ), ExtResource( 43 ) ]
-recipe_names = [ "Bonebreaker", "Executioner", "Magma Barrier" ]
+recipe_names = [ "T1/Bonebreaker", "T2/Executioner", "T2/MagmaBarrier" ]
 rewards = [ "Weapons", "Weapons", "Fragments" ]
 monster_power = "Monster uses the abilities of Tukohama"
 description = "Rewards are rolled 4 additional times, choosing the rarest result"
@@ -763,10 +822,11 @@ margin_left = 220.0
 margin_top = 250.0
 margin_right = 220.0
 margin_bottom = 250.0
-icon_name = "Invulnerable"
+display_name = "Invulnerable"
+mod_name = "Invulnerable"
 icon_texture = ExtResource( 53 )
 recipe_icon_textures = [ ExtResource( 22 ), ExtResource( 13 ), ExtResource( 15 ) ]
-recipe_names = [ "Consecrator", "Juggernaut", "Sentinel" ]
+recipe_names = [ "T1/Consecrator", "T1/Juggernaut", "T1/Sentinel" ]
 rewards = [ "Delirium", "Metamorphosis" ]
 monster_power = "Monster and its Minions periodically become immune to all Damage. Minions cannot die while Monster is alive"
 recipe_search_string = "^(sen|jug|con)"
@@ -776,10 +836,11 @@ margin_left = 440.0
 margin_top = 250.0
 margin_right = 440.0
 margin_bottom = 250.0
-icon_name = "Temporal Bubble"
+display_name = "Temporal Bubble"
+mod_name = "Temporal Bubble"
 icon_texture = ExtResource( 55 )
 recipe_icon_textures = [ ExtResource( 18 ), ExtResource( 42 ), ExtResource( 13 ) ]
-recipe_names = [ "Arcane Buffer", "Hexer", "Juggernaut" ]
+recipe_names = [ "T1/ArcaneBuffer", "T2/Hexer", "T1/Juggernaut" ]
 rewards = [ "Heist", "Expedition" ]
 monster_power = "Monster is protected by a Temporal Bubble that severely slows those in it and cannot be damaged by those outside of it"
 recipe_search_string = "^(hex|jug|arc)"
@@ -789,10 +850,11 @@ margin_left = 660.0
 margin_top = 250.0
 margin_right = 660.0
 margin_bottom = 250.0
-icon_name = "Treant Horde"
+display_name = "Treant Horde"
+mod_name = "Treant Horde"
 icon_texture = ExtResource( 56 )
 recipe_icon_textures = [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 2 ) ]
-recipe_names = [ "Sentinel", "Steel-infused", "Toxic" ]
+recipe_names = [ "T1/Sentinel", "T1/Steel-Infused", "T1/Toxic" ]
 rewards = [ "Generic" ]
 monster_power = "Monster's minions are replaced with powerful Treants. Some Damage taken from the monster is split between the Treants"
 description = "Monster's Minions drop a randomly-chosen Reward Type"
@@ -803,10 +865,11 @@ margin_left = 880.0
 margin_top = 250.0
 margin_right = 880.0
 margin_bottom = 250.0
-icon_name = "Trickster"
+display_name = "Trickster"
+mod_name = "Trickster"
 icon_texture = ExtResource( 57 )
 recipe_icon_textures = [ ExtResource( 31 ), ExtResource( 30 ), ExtResource( 8 ) ]
-recipe_names = [ "Assassin", "Echoist", "Overcharged" ]
+recipe_names = [ "T2/Assassin", "T1/Echoist", "T1/Overcharged" ]
 rewards = [ "Currency", "Uniques", "Cards" ]
 monster_power = "Monster has damage avoidance. Monster periodically Flees"
 recipe_search_string = "^(ass|ove|ech)"
@@ -824,10 +887,11 @@ __meta__ = {
 }
 
 [node name="Innocence" parent="T4" instance=ExtResource( 4 )]
-icon_name = "Innocence"
+display_name = "Innocence"
+mod_name = "Innocence-Touched"
 icon_texture = ExtResource( 65 )
 recipe_icon_textures = [ ExtResource( 64 ), ExtResource( 45 ), ExtResource( 44 ), ExtResource( 63 ) ]
-recipe_names = [ "Lunaris", "Mana Siphoner", "Mirror Image", "Solaris" ]
+recipe_names = [ "T3-2/Lunaris", "T2/ManaSiphoner", "T2/MirrorImage", "T3-2/Solaris" ]
 rewards = [ "Currency", "Currency", "Currency" ]
 monster_power = "Monster uses the abilities of Innocence"
 description = "All Reward Types are Currency"
@@ -836,10 +900,11 @@ recipe_search_string = "^(lun|sol|mir|man)"
 [node name="Kitava" parent="T4" instance=ExtResource( 4 )]
 margin_left = 220.0
 margin_right = 220.0
-icon_name = "Kitava"
+display_name = "Kitava"
+mod_name = "Kitava-Touched"
 icon_texture = ExtResource( 66 )
 recipe_icon_textures = [ ExtResource( 58 ), ExtResource( 32 ), ExtResource( 34 ), ExtResource( 62 ) ]
-recipe_names = [ "Abberath", "Corpse Detonator", "Corrupter", "Tukohama" ]
+recipe_names = [ "T3-1/Abberath", "T2/CorpseDetonator", "T2/Corrupter", "T3-2/Tukohama" ]
 rewards = [ "Generic" ]
 monster_power = "Monster uses the abilities of Kitava"
 description = "Rewards are doubled"
@@ -971,4 +1036,66 @@ points = PoolVector2Array( 1, 70, 285, 70 )
 width = 2.0
 default_color = Color( 0.235294, 0.235294, 0.235294, 1 )
 
+[node name="SettingArea" type="Node2D" parent="."]
+scale = Vector2( 1.2, 1.2 )
+
+[node name="SelectSaveFile" type="Button" parent="SettingArea"]
+margin_left = 1455.83
+margin_top = 851.667
+margin_right = 1571.83
+margin_bottom = 872.667
+rect_scale = Vector2( 1.2, 1.2 )
+text = "Select Inventory"
+script = ExtResource( 72 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="SettingArea/SelectSaveFile"]
+anchor_left = 24.0
+anchor_top = 13.5
+anchor_right = 24.0
+anchor_bottom = 13.5
+margin_left = -3071.5
+margin_top = -687.667
+margin_right = -2671.5
+margin_bottom = -287.667
+window_title = "Select Inventory File Location"
+mode_overrides_title = false
+mode = 0
+access = 2
+current_dir = "/Users/drago/Documents/GitHub/Archnemisis-app"
+current_path = "/Users/drago/Documents/GitHub/Archnemisis-app/"
+
+[node name="SyncWithFile" type="CheckBox" parent="SettingArea"]
+margin_left = 1536.66
+margin_top = 821.667
+margin_right = 1593.66
+margin_bottom = 845.667
+pressed = true
+text = "Sync"
+script = ExtResource( 73 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseApp" type="TextureButton" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 1892.0
+margin_right = 1920.0
+margin_bottom = 27.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 74 )
+expand = true
+script = ExtResource( 75 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="ready" from="." to="." method="_on_Scene_ready"]
 [connection signal="text_changed" from="LineEdit" to="LineEdit" method="_on_LineEdit_text_changed"]
+[connection signal="pressed" from="SettingArea/SelectSaveFile" to="SettingArea/SelectSaveFile" method="_on_Button_pressed"]
+[connection signal="file_selected" from="SettingArea/SelectSaveFile/FileDialog" to="SettingArea/SelectSaveFile" method="_on_FileDialog_file_selected"]
+[connection signal="modal_closed" from="SettingArea/SelectSaveFile/FileDialog" to="SettingArea/SelectSaveFile" method="_on_FileDialog_modal_closed"]
+[connection signal="pressed" from="SettingArea/SyncWithFile" to="SettingArea/SyncWithFile" method="_on_SyncWithFile_pressed"]
+[connection signal="pressed" from="CloseApp" to="CloseApp" method="_on_CloseApp_pressed"]

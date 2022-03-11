@@ -10,7 +10,6 @@ func _ready():
 
 func _gui_input(event):
 	if event is InputEventMouseButton:
-		print(event)
 		if event.is_action_released("Mouse_left"):
 			emit_signal("left")
 		if event.is_action_released("Mouse_right"):

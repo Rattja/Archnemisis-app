@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/T1_Button.gd" type="Script" id=1]
 [ext_resource path="res://Icons/Toxic.png" type="Texture" id=2]
@@ -19,10 +19,14 @@ font_data = ExtResource( 5 )
 use_filter = true
 font_data = ExtResource( 5 )
 
-[node name="IconButton" type="Control" groups=[
-"Button",
-"T1",
-]]
+[sub_resource type="DynamicFont" id=5]
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0.0901961, 0.709804, 0, 1, 0, 0.529412, 1, 1 )
+
+[node name="IconButton" type="Control" groups=["Button", "T1"]]
 mouse_filter = 1
 script = ExtResource( 1 )
 __meta__ = {
@@ -101,10 +105,18 @@ points = PoolVector2Array( -47, -9, -4, -9, -4, 28, 7, 28 )
 width = 2.0
 default_color = Color( 0.290196, 0.290196, 0.290196, 1 )
 
+[node name="TrackedPart" type="Line2D" parent="."]
+visible = false
+position = Vector2( 5.351, 0 )
+points = PoolVector2Array( 27.5, 60, -5, 27.5, 27.5, -5, 60, 27.5, 27.5, 60 )
+width = 2.0
+default_color = Color( 0.898039, 1, 0, 0.509804 )
+
 [node name="TextureButton" type="TextureButton" parent="."]
 margin_left = 5.0
 margin_right = 61.0
 margin_bottom = 55.0
+mouse_default_cursor_shape = 2
 button_mask = 7
 texture_normal = ExtResource( 2 )
 script = ExtResource( 3 )
@@ -113,6 +125,7 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
+visible = false
 margin_left = 5.94054
 margin_top = -41.3027
 margin_right = 58.9405
@@ -133,7 +146,14 @@ texture = ExtResource( 4 )
 [node name="Search_Glow" type="Sprite" parent="."]
 visible = false
 modulate = Color( 0.219608, 1, 0, 0.509804 )
-position = Vector2( 27.5955, 26.5378 )
+position = Vector2( 32.84, 26.912 )
+scale = Vector2( 1.36039, 1.36039 )
+texture = ExtResource( 4 )
+
+[node name="Missing_Glow" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0, 0, 0.815686 )
+position = Vector2( 32.84, 26.912 )
 scale = Vector2( 1.36039, 1.36039 )
 texture = ExtResource( 4 )
 
@@ -199,6 +219,36 @@ position = Vector2( 5.35143, -0.148651 )
 points = PoolVector2Array( 0, 55, 55, 55, 55, 0, 0, 0, 0, 55 )
 width = 2.0
 default_color = Color( 1, 1, 0, 0.509804 )
+
+[node name="PartCounter" type="Label" parent="."]
+margin_left = 61.0
+margin_top = -1.0
+margin_right = 77.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 5 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="PartCounter"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IsPartOf" type="Line2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.3 )
+position = Vector2( 61.16, -0.68 )
+scale = Vector2( 0.290002, 0.33 )
+points = PoolVector2Array( 0, 27, -2, -2, 27, 0, 56, -2, 54, 28, 56, 56, 27, 54, -2, 56, 0, 27 )
+width = 2.0
+gradient = SubResource( 6 )
+antialiased = true
 
 [connection signal="left" from="TextureButton" to="." method="_on_TextureButton_left"]
 [connection signal="middle" from="TextureButton" to="." method="_on_TextureButton_middle"]
